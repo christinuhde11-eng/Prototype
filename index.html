@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KISSKI Dashboard Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Layout Grid */
+        .wireframe-container {
+            display: grid;
+            grid-template-areas:
+                "topnav topnav topnav"
+                "sidebar main status"
+                "sidebar main status";
+            grid-template-columns: 240px 1fr 300px;
+            grid-template-rows: 60px 1fr;
+            height: 100vh;
+            gap: 0;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            grid-area: topnav;
+            background: #fff;
+            border-bottom: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            color: #21808D;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #999;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: #fff;
+            border-right: 2px solid #ddd;
+            padding: 16px 0;
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+        }
+
+        .menu-item.active {
+            border-left-color: #21808D;
+            background: #e8f4f6;
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #666;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            grid-area: main;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .wireframe-card {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 180px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .placeholder-line {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 2px;
+        }
+
+        .placeholder-line.short {
+            width: 60%;
+        }
+
+        .placeholder-line.medium {
+            width: 80%;
+        }
+
+        .placeholder-chart {
+            height: 120px;
+            background: repeating-linear-gradient(
+                45deg,
+                #f0f0f0,
+                #f0f0f0 10px,
+                #e0e0e0 10px,
+                #e0e0e0 20px
+            );
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* Status Panel */
+        .status-panel {
+            grid-area: status;
+            background: #fafafa;
+            border-left: 2px solid #ddd;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .status-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .status-item {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-indicator.green {
+            background: #27AE60;
+        }
+
+        .status-indicator.yellow {
+            background: #F39C12;
+        }
+
+        .status-indicator.red {
+            background: #E74C3C;
+        }
+
+        .alert-item {
+            background: #fff;
+            border-left: 4px solid #E74C3C;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .alert-time {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .wireframe-container {
+                grid-template-areas:
+                    "topnav topnav"
+                    "sidebar main"
+                    "sidebar main";
+                grid-template-columns: 60px 1fr;
+            }
+
+            .status-panel {
+                display: none;
+            }
+
+            .menu-item span {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wireframe-container {
+                grid-template-areas:
+                    "topnav"
+                    "main"
+                    "main";
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Annotation Labels */
+        .annotation {
+            position: absolute;
+            background: #21808D;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* Legend */
+        .legend {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 12px;
+        }
+
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="logo">KISSKI Logo</div>
+            <div class="nav-icons">
+                <div class="nav-icon" title="Dashboard">D</div>
+                <div class="nav-icon" title="Patienten">P</div>
+                <div class="nav-icon" title="KI-Assistent">A</div>
+                <div class="nav-icon" title="Einstellungen">S</div>
+                <div class="nav-icon" title="User Profile">U</div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="menu-item active">
+                <div class="menu-icon">□</div>
+                <span>Übersicht</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">♥</div>
+                <span>Live-Monitoring</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">⚡</div>
+                <span>KI-Analysen</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">?</div>
+                <span>Erklärungen</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">⌚</div>
+                <span>Verlauf</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">📄</div>
+                <span>Berichte</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-icon">⚙</div>
+                <span>Einstellungen</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h2 style="margin-bottom: 24px; color: #333;">Dashboard Übersicht</h2>
+            
+            <!-- Metric Cards -->
+            <div class="content-grid">
+                <div class="wireframe-card">
+                    <div class="card-title">Patientenstatus</div>
+                    <div class="card-content">
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                        <div class="placeholder-line short"></div>
+                    </div>
+                </div>
+
+                <div class="wireframe-card">
+                    <div class="card-title">KI-Empfehlungen</div>
+                    <div class="card-content">
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line"></div>
+                        <div style="height: 40px; background: #e0e0e0; border-radius: 4px; margin-top: 8px;"></div>
+                    </div>
+                </div>
+
+                <div class="wireframe-card">
+                    <div class="card-title">Aktive Alerts</div>
+                    <div class="card-content">
+                        <div class="placeholder-line short"></div>
+                        <div class="placeholder-line"></div>
+                        <div class="placeholder-line medium"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="content-grid">
+                <div class="wireframe-card" style="grid-column: span 2;">
+                    <div class="card-title">Zeitverlauf Vitalparameter</div>
+                    <div class="placeholder-chart">Line Chart Visualization</div>
+                </div>
+
+                <div class="wireframe-card">
+                    <div class="card-title">KI-Prediction</div>
+                    <div class="placeholder-chart">Bar Chart</div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="wireframe-card">
+                <div class="card-title">Aktuelle Messwerte</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px;">
+                    <div class="placeholder-line"></div>
+                    <div class="placeholder-line"></div>
+                    <div class="placeholder-line"></div>
+                    <div class="placeholder-line"></div>
+                    <div class="placeholder-line short"></div>
+                    <div class="placeholder-line medium"></div>
+                    <div class="placeholder-line"></div>
+                    <div class="placeholder-line short"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status Panel -->
+        <aside class="status-panel">
+            <div class="status-section">
+                <div class="section-title">System-Status</div>
+                <div class="status-item">
+                    <div class="status-indicator green"></div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 13px;">KI-Modell aktiv</div>
+                        <div style="font-size: 11px; color: #999;">Letzte Prüfung: 11:58</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator green"></div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 13px;">Datenverbindung</div>
+                        <div style="font-size: 11px; color: #999;">Stabil</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <div class="section-title">Priority Alerts</div>
+                <div class="alert-item" style="border-left-color: #E74C3C;">
+                    <div class="alert-title">⚠ Kritischer Wert erkannt</div>
+                    <div class="alert-time">vor 2 Minuten</div>
+                </div>
+                <div class="alert-item" style="border-left-color: #F39C12;">
+                    <div class="alert-title">⚡ Hohe Last</div>
+                    <div class="alert-time">vor 15 Minuten</div>
+                </div>
+                <div class="alert-item" style="border-left-color: #27AE60;">
+                    <div class="alert-title">✓ System Update</div>
+                    <div class="alert-time">vor 1 Stunde</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+        <div class="legend-title">Wireframe Legende</div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #fff; border: 2px solid #ddd;"></div>
+            <span>Content Area</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #e0e0e0;"></div>
+            <span>Placeholder</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #21808D;"></div>
+            <span>Primary Action</span>
+        </div>
+    </div>
+</body>
+</html>
